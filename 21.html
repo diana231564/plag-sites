@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLAG — British Heritage</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Georgia','Times New Roman',serif}
+  body{background:#f5f2ec;color:#1a1a1a;overflow-x:hidden}
+  header{display:flex;justify-content:space-between;align-items:center;padding:18px 50px;background:#1a1a1a;color:#f5f2ec;position:sticky;top:0;z-index:100}
+  .logo{font-size:28px;font-weight:400;letter-spacing:6px;color:#f5f2ec}
+  nav a{color:#f5f2ec;text-decoration:none;margin:0 18px;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.7;transition:.3s}
+  nav a:hover{opacity:1}
+  .cart-btn{background:none;border:1px solid #f5f2ec;color:#f5f2ec;padding:8px 20px;cursor:pointer;font-family:inherit;font-size:10px;letter-spacing:2px;text-transform:uppercase;transition:.3s}
+  .cart-btn:hover{background:#f5f2ec;color:#1a1a1a}
+  .hero{height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;background:#e8e0d0;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(26,26,26,.03) 40px,rgba(26,26,26,.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(26,26,26,.03) 40px,rgba(26,26,26,.03) 41px)}
+  .hero-content{position:relative;z-index:2}
+  .hero .eyebrow{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:#666;margin-bottom:20px}
+  .hero h1{font-size:90px;font-weight:400;letter-spacing:20px;color:#1a1a1a;margin-bottom:15px}
+  .hero p{font-size:15px;font-style:italic;color:#555;letter-spacing:2px}
+  .check-pattern{height:8px;background:repeating-linear-gradient(90deg,#1a1a1a 0,#1a1a1a 20px,#f5f2ec 20px,#f5f2ec 40px,#c41a1f 40px,#c41a1f 60px,#f5f2ec 60px,#f5f2ec 80px)}
+  .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:30px;padding:60px 50px;max-width:1400px;margin:0 auto}
+  .card{background:#fff;text-align:center;transition:.3s;border:1px solid #d8d0c0;position:relative}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:repeating-linear-gradient(90deg,#1a1a1a 0,#1a1a1a 8px,#f5f2ec 8px,#f5f2ec 16px,#c41a1f 16px,#c41a1f 24px,#f5f2ec 24px,#f5f2ec 32px)}
+  .card:hover{box-shadow:0 10px 30px rgba(0,0,0,.08)}
+  .card-img{height:270px;background:#f5f2ec;display:flex;align-items:center;justify-content:center;font-size:80px;border-bottom:1px solid #e8e0d0}
+  .card h3{font-size:13px;font-weight:400;letter-spacing:3px;text-transform:uppercase;margin:20px 0 6px;color:#1a1a1a}
+  .card .price{font-size:15px;color:#666;letter-spacing:1px;margin-bottom:18px}
+  .card button{background:none;border:1px solid #1a1a1a;padding:10px 28px;cursor:pointer;font-family:inherit;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:25px;transition:.3s;color:#1a1a1a}
+  .card button:hover{background:#1a1a1a;color:#f5f2ec}
+  .cart-panel{position:fixed;top:0;right:-450px;width:450px;height:100vh;background:#fff;padding:45px;transition:.4s;z-index:200;overflow-y:auto;box-shadow:-20px 0 50px rgba(0,0,0,.1);border-left:1px solid #d8d0c0}
+  .cart-panel.open{right:0}
+  .cart-panel h2{font-size:20px;font-weight:400;letter-spacing:5px;margin-bottom:30px;padding-bottom:20px;border-bottom:1px solid #d8d0c0}
+  .cart-item{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #f0ece4;font-size:13px;letter-spacing:1px}
+  .total{margin-top:25px;font-size:18px;letter-spacing:2px;padding:15px 0;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a}
+  .checkout{width:100%;margin-top:20px;padding:15px;background:#1a1a1a;color:#f5f2ec;border:none;font-family:inherit;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.3s}
+  .checkout:hover{background:#c41a1f}
+  .close{position:absolute;top:20px;right:25px;cursor:pointer;font-size:22px;color:#666}
+  .del{color:#c41a1f;cursor:pointer}
+  footer{text-align:center;padding:50px;color:#666;font-size:10px;letter-spacing:3px;border-top:1px solid #d8d0c0;margin-top:20px}
+/* ===== MOBILE PATCH ===== */
+@media (max-width: 900px) {
+  header { flex-wrap: wrap !important; padding: 14px 20px !important; gap: 10px !important; }
+  .logo { font-size: 22px !important; letter-spacing: 3px !important; }
+  nav { order: 3; width: 100%; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; margin-top: 8px; }
+  nav a { margin: 0 !important; font-size: 11px !important; padding: 6px 10px !important; }
+  .cart-btn, .cart-icon { font-size: 11px !important; padding: 8px 14px !important; }
+  .hero { height: auto !important; min-height: 55vh !important; padding: 60px 20px !important; }
+  .hero h1 { font-size: 48px !important; letter-spacing: 6px !important; line-height: 1.1 !important; }
+  .hero p { font-size: 12px !important; letter-spacing: 2px !important; }
+  .hero .eyebrow, .hero .ornament, .hero .label { font-size: 10px !important; letter-spacing: 4px !important; margin-bottom: 15px !important; }
+  .kinetic-text { font-size: 80px !important; }
+  .section-title, .section-intro h2 { font-size: 26px !important; letter-spacing: 4px !important; }
+  .section-intro { padding: 40px 20px 20px !important; }
+  .products { grid-template-columns: 1fr !important; gap: 20px !important; padding: 30px 20px 60px !important; }
+  .card { padding: 20px 15px !important; transform: none !important; }
+  .card-img, .card .card-img { height: 220px !important; font-size: 60px !important; }
+  .card .emoji { font-size: 60px !important; }
+  .card h3 { font-size: 14px !important; }
+  .card .price { font-size: 16px !important; }
+  .card button { padding: 10px 18px !important; font-size: 11px !important; }
+  .cart-panel, .cart-sidebar { width: 100% !important; right: -100% !important; padding: 25px 20px !important; }
+  .cart-panel.open, .cart-sidebar.open { right: 0 !important; }
+  .cart-panel h2, .cart-sidebar h2 { font-size: 20px !important; letter-spacing: 3px !important; }
+  .total, .total-lux { font-size: 16px !important; }
+  .checkout, .checkout-btn { padding: 14px !important; font-size: 12px !important; }
+  footer { padding: 30px 20px !important; font-size: 10px !important; letter-spacing: 2px !important; }
+  .toast, .notification { left: 20px !important; right: 20px !important; transform: translateY(100px) !important; }
+  .toast.show, .notification.show { transform: translateY(0) !important; }
+  .search-box { padding: 15px 20px !important; }
+  .search-box input { font-size: 15px !important; padding: 10px !important; }
+  .loader h1 { font-size: 36px !important; letter-spacing: 12px !important; }
+  .modal-content, .modal-inner { width: 95% !important; padding: 20px !important; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 36px !important; letter-spacing: 3px !important; }
+  .hero { min-height: 45vh !important; padding: 40px 15px !important; }
+  .card-img, .card .card-img { height: 180px !important; font-size: 50px !important; }
+  .logo { font-size: 18px !important; letter-spacing: 2px !important; }
+  nav a { font-size: 10px !important; padding: 5px 8px !important; }
+  .kinetic-text { font-size: 60px !important; }
+  .hero .ornament, .hero .eyebrow { letter-spacing: 2px !important; }
+}
+/* ===== /MOBILE PATCH ===== */
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PLAG</div>
+  <nav><a href="#p">Women</a><a href="#p">Men</a><a href="#p">Heritage</a></nav>
+  <button class="cart-btn" onclick="toggleCart()">Bag (<span id="count">0</span>)</button>
+</header>
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">Est. 2026 — British Luxury</div>
+    <h1>PLAG</h1>
+    <p>The Heritage Collection</p>
+  </div>
+</section>
+<div class="check-pattern"></div>
+<div class="products" id="p"></div>
+<div class="cart-panel" id="cart">
+  <span class="close" onclick="toggleCart()">✕</span>
+  <h2>Shopping Bag</h2>
+  <div id="cartItems"></div>
+  <div class="total" id="total"></div>
+  <button class="checkout" onclick="checkout()">Proceed to Checkout</button>
+</div>
+<footer>© 2026 PLAG — British Heritage</footer>
+<script>
+const products=[
+  {id:1,name:'Худи Oversize',price:4500,emoji:'👕'},
+  {id:2,name:'Джинсы Straight',price:5500,emoji:'👖'},
+  {id:3,name:'Кроссовки White',price:8500,emoji:'👟'},
+  {id:4,name:'Куртка Bomber',price:7500,emoji:'🧥'},
+  {id:5,name:'Футболка Basic',price:2500,emoji:'👕'},
+  {id:6,name:'Кепка Classic',price:1500,emoji:'🧢'},
+  {id:7,name:'Свитер Wool',price:5500,emoji:'🧶'},
+  {id:8,name:'Сумка Canvas',price:3500,emoji:'👜'}
+];
+let cart=[];
+function render(){document.getElementById('p').innerHTML=products.map(p=>`
+  <div class="card"><div class="card-img">${p.emoji}</div><h3>${p.name}</h3>
+  <div class="price">${p.price.toLocaleString()} ₽</div>
+  <button onclick="add(${p.id})">Add to Bag</button></div>`).join('');}
+function add(id){cart.push(products.find(x=>x.id===id));update();}
+function update(){
+  document.getElementById('count').textContent=cart.length;
+  document.getElementById('cartItems').innerHTML=cart.map((c,i)=>
+    `<div class="cart-item"><span>${c.name}</span><span>${c.price.toLocaleString()} ₽ <span class="del" onclick="rm(${i})">✕</span></span></div>`).join('')||'<p style="text-align:center;color:#aaa;font-style:italic">Your bag is empty</p>';
+  document.getElementById('total').textContent='Total: '+cart.reduce((s,c)=>s+c.price,0).toLocaleString()+' ₽';
+}
+function rm(i){cart.splice(i,1);update();}
+function toggleCart(){document.getElementById('cart').classList.toggle('open');}
+function checkout(){if(!cart.length)return alert('Your bag is empty');alert('✓ Order placed! Total: '+cart.reduce((s,c)=>s+c.price,0)+' ₽');cart=[];update();toggleCart();}
+render();
+</script>
+</body>
+</html>

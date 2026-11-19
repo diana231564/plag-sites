@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLAG — Dark Academia</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Garamond','EB Garamond','Georgia',serif}
+  body{background:#1a1410;background-image:radial-gradient(circle at 30% 20%,rgba(139,90,43,.15),transparent 50%),radial-gradient(circle at 70% 80%,rgba(80,60,40,.2),transparent 50%);color:#c9b89a;min-height:100vh;overflow-x:hidden;position:relative}
+  .dust{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.4}
+  .particle{position:absolute;width:2px;height:2px;background:#c9b89a;border-radius:50%;animation:drift 20s linear infinite}
+  @keyframes drift{from{transform:translateY(100vh) translateX(0)}to{transform:translateY(-100px) translateX(50px)}}
+  header{display:flex;justify-content:space-between;align-items:center;padding:25px 60px;background:rgba(26,20,16,.9);border-bottom:2px solid #5c4a2e;position:sticky;top:0;z-index:100;backdrop-filter:blur(5px)}
+  .logo{font-size:36px;font-weight:bold;letter-spacing:10px;color:#c9b89a;position:relative;font-style:italic}
+  .logo::before,.logo::after{content:'❦';color:#8b5a2b;font-size:16px;margin:0 15px;display:inline-block;vertical-align:middle;font-style:normal}
+  nav a{color:#c9b89a;text-decoration:none;margin:0 20px;font-size:14px;letter-spacing:3px;text-transform:uppercase;font-style:italic;transition:.3s;position:relative}
+  nav a:hover{color:#e8b923}
+  nav a::before{content:'';position:absolute;bottom:-5px;left:0;width:0;height:1px;background:#8b5a2b;transition:.3s}
+  nav a:hover::before{width:100%}
+  .cart-btn{background:none;border:1px solid #8b5a2b;color:#c9b89a;padding:10px 25px;cursor:pointer;font-family:inherit;font-size:12px;letter-spacing:3px;text-transform:uppercase;font-style:italic;transition:.3s}
+  .cart-btn:hover{background:#8b5a2b;color:#1a1410}
+  .hero{padding:130px 60px 80px;text-align:center;position:relative;z-index:1}
+  .hero .ornament{font-size:24px;color:#8b5a2b;letter-spacing:20px;margin-bottom:25px;opacity:.7}
+  .hero h1{font-size:130px;font-weight:normal;letter-spacing:25px;color:#c9b89a;margin-bottom:20px;font-style:italic;text-shadow:2px 2px 0 rgba(0,0,0,.5)}
+  .hero p{font-size:18px;letter-spacing:6px;color:#8b7a5a;font-style:italic;margin-top:20px;border-top:1px solid #5c4a2e;border-bottom:1px solid #5c4a2e;display:inline-block;padding:12px 40px}
+  .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:35px;padding:60px;max-width:1400px;margin:0 auto;position:relative;z-index:1}
+  .card{background:rgba(45,35,25,.6);border:1px solid #5c4a2e;padding:35px 25px;text-align:center;transition:.4s;position:relative}
+  .card::before{content:'';position:absolute;inset:8px;border:1px solid rgba(139,90,43,.3);pointer-events:none}
+  .card:hover{border-color:#8b5a2b;box-shadow:0 10px 40px rgba(0,0,0,.5);transform:translateY(-5px)}
+  .card .emoji{font-size:80px;margin:20px 0;filter:sepia(.6) brightness(.9)}
+  .card h3{font-size:17px;font-weight:normal;letter-spacing:4px;text-transform:uppercase;margin:15px 0;color:#c9b89a;font-style:italic}
+  .card .price{font-size:20px;color:#e8b923;margin-bottom:20px;font-style:italic}
+  .card button{background:none;border:1px solid #8b5a2b;color:#c9b89a;padding:12px 30px;cursor:pointer;font-family:inherit;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-style:italic;transition:.4s;width:100%}
+  .card button:hover{background:#8b5a2b;color:#1a1410}
+  .cart-panel{position:fixed;top:0;right:-450px;width:450px;height:100vh;background:#1a1410;border-left:2px solid #5c4a2e;padding:50px;transition:.4s;z-index:200;overflow-y:auto;box-shadow:-20px 0 60px rgba(0,0,0,.7)}
+  .cart-panel.open{right:0}
+  .cart-panel h2{font-size:26px;font-weight:normal;letter-spacing:6px;font-style:italic;color:#c9b89a;margin-bottom:30px;text-align:center;padding-bottom:20px;border-bottom:1px solid #5c4a2e}
+  .cart-item{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid rgba(92,74,46,.4);font-size:13px;font-style:italic;letter-spacing:1px}
+  .total{margin-top:30px;font-size:20px;font-style:italic;color:#e8b923;text-align:center;padding:20px 0;border-top:1px solid #8b5a2b;border-bottom:1px solid #8b5a2b}
+  .checkout{width:100%;margin-top:25px;padding:16px;background:#8b5a2b;color:#1a1410;border:none;font-family:inherit;font-size:12px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;font-style:italic;transition:.3s}
+  .checkout:hover{background:#e8b923;box-shadow:0 0 20px rgba(232,185,35,.3)}
+  .close{position:absolute;top:20px;right:25px;cursor:pointer;font-size:24px;color:#8b5a2b}
+  .del{color:#c44;cursor:pointer;font-style:normal}
+  footer{text-align:center;padding:60px;color:#5c4a2e;font-size:12px;letter-spacing:4px;font-style:italic;border-top:1px solid #2a2018;margin-top:40px;position:relative;z-index:1}
+/* ===== MOBILE PATCH ===== */
+@media (max-width: 900px) {
+  header { flex-wrap: wrap !important; padding: 14px 20px !important; gap: 10px !important; }
+  .logo { font-size: 22px !important; letter-spacing: 3px !important; }
+  nav { order: 3; width: 100%; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; margin-top: 8px; }
+  nav a { margin: 0 !important; font-size: 11px !important; padding: 6px 10px !important; }
+  .cart-btn, .cart-icon { font-size: 11px !important; padding: 8px 14px !important; }
+  .hero { height: auto !important; min-height: 55vh !important; padding: 60px 20px !important; }
+  .hero h1 { font-size: 48px !important; letter-spacing: 6px !important; line-height: 1.1 !important; }
+  .hero p { font-size: 12px !important; letter-spacing: 2px !important; }
+  .hero .eyebrow, .hero .ornament, .hero .label { font-size: 10px !important; letter-spacing: 4px !important; margin-bottom: 15px !important; }
+  .kinetic-text { font-size: 80px !important; }
+  .section-title, .section-intro h2 { font-size: 26px !important; letter-spacing: 4px !important; }
+  .section-intro { padding: 40px 20px 20px !important; }
+  .products { grid-template-columns: 1fr !important; gap: 20px !important; padding: 30px 20px 60px !important; }
+  .card { padding: 20px 15px !important; transform: none !important; }
+  .card-img, .card .card-img { height: 220px !important; font-size: 60px !important; }
+  .card .emoji { font-size: 60px !important; }
+  .card h3 { font-size: 14px !important; }
+  .card .price { font-size: 16px !important; }
+  .card button { padding: 10px 18px !important; font-size: 11px !important; }
+  .cart-panel, .cart-sidebar { width: 100% !important; right: -100% !important; padding: 25px 20px !important; }
+  .cart-panel.open, .cart-sidebar.open { right: 0 !important; }
+  .cart-panel h2, .cart-sidebar h2 { font-size: 20px !important; letter-spacing: 3px !important; }
+  .total, .total-lux { font-size: 16px !important; }
+  .checkout, .checkout-btn { padding: 14px !important; font-size: 12px !important; }
+  footer { padding: 30px 20px !important; font-size: 10px !important; letter-spacing: 2px !important; }
+  .toast, .notification { left: 20px !important; right: 20px !important; transform: translateY(100px) !important; }
+  .toast.show, .notification.show { transform: translateY(0) !important; }
+  .search-box { padding: 15px 20px !important; }
+  .search-box input { font-size: 15px !important; padding: 10px !important; }
+  .loader h1 { font-size: 36px !important; letter-spacing: 12px !important; }
+  .modal-content, .modal-inner { width: 95% !important; padding: 20px !important; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 36px !important; letter-spacing: 3px !important; }
+  .hero { min-height: 45vh !important; padding: 40px 15px !important; }
+  .card-img, .card .card-img { height: 180px !important; font-size: 50px !important; }
+  .logo { font-size: 18px !important; letter-spacing: 2px !important; }
+  nav a { font-size: 10px !important; padding: 5px 8px !important; }
+  .kinetic-text { font-size: 60px !important; }
+  .hero .ornament, .hero .eyebrow { letter-spacing: 2px !important; }
+}
+/* ===== /MOBILE PATCH ===== */
+</style>
+</head>
+<body>
+<div class="dust" id="dust"></div>
+<header>
+  <div class="logo">PLAG</div>
+  <nav><a href="#p">Библиотека</a><a href="#p">Коллекция</a><a href="#p">Манифест</a></nav>
+  <button class="cart-btn" onclick="toggleCart()">Корзина (<span id="count">0</span>)</button>
+</header>
+<section class="hero">
+  <div class="ornament">❦ ❦ ❦</div>
+  <h1>PLAG</h1>
+  <p>Одежда для тех, кто читает между строк</p>
+</section>
+<div class="products" id="p"></div>
+<div class="cart-panel" id="cart">
+  <span class="close" onclick="toggleCart()">✕</span>
+  <h2>Корзина</h2>
+  <div id="cartItems"></div>
+  <div class="total" id="total"></div>
+  <button class="checkout" onclick="checkout()">Оформить заказ</button>
+</div>
+<footer>❦ PLAG — DARK ACADEMIA — MEMENTO VIVERE ❦</footer>
+<script>
+const products=[
+  {id:1,name:'Худи Oversize',price:4500,emoji:'👕'},
+  {id:2,name:'Джинсы Straight',price:5500,emoji:'👖'},
+  {id:3,name:'Кроссовки White',price:8500,emoji:'👟'},
+  {id:4,name:'Куртка Bomber',price:7500,emoji:'🧥'},
+  {id:5,name:'Футболка Basic',price:2500,emoji:'👕'},
+  {id:6,name:'Кепка Classic',price:1500,emoji:'🧢'},
+  {id:7,name:'Свитер Wool',price:5500,emoji:'🧶'},
+  {id:8,name:'Сумка Canvas',price:3500,emoji:'👜'}
+];
+let cart=[];
+function render(){document.getElementById('p').innerHTML=products.map(p=>`
+  <div class="card"><div class="emoji">${p.emoji}</div><h3>${p.name}</h3>
+  <div class="price">${p.price.toLocaleString()} ₽</div>
+  <button onclick="add(${p.id})">Приобрести</button></div>`).join('');}
+function add(id){cart.push(products.find(x=>x.id===id));update();}
+function update(){
+  document.getElementById('count').textContent=cart.length;
+  document.getElementById('cartItems').innerHTML=cart.map((c,i)=>
+    `<div class="cart-item"><span>${c.name}</span><span>${c.price}₽ <span class="del" onclick="rm(${i})">✕</span></span></div>`).join('')||'<p style="text-align:center;color:#5c4a2e;font-style:italic">Пусто...</p>';
+  document.getElementById('total').textContent='Итого: '+cart.reduce((s,c)=>s+c.price,0).toLocaleString()+' ₽';
+}
+function rm(i){cart.splice(i,1);update();}
+function toggleCart(){document.getElementById('cart').classList.toggle('open');}
+function checkout(){if(!cart.length)return alert('Корзина пуста');alert('✓ Заказ оформлен! Сумма: '+cart.reduce((s,c)=>s+c.price,0)+' ₽');cart=[];update();toggleCart();}
+const d=document.getElementById('dust');
+for(let i=0;i<40;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.animationDelay=Math.random()*20+'s';p.style.animationDuration=(15+Math.random()*10)+'s';d.appendChild(p);}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLAG — Minecraft</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Courier New',monospace;image-rendering:pixelated}
+  body{background:#7fb238;background-image:linear-gradient(rgba(0,0,0,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.1) 1px,transparent 1px);background-size:32px 32px;color:#fff;min-height:100vh;overflow-x:hidden;position:relative}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(45deg,rgba(0,0,0,.05) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.05) 75%),linear-gradient(45deg,rgba(0,0,0,.05) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.05) 75%);background-size:16px 16px;background-position:0 0,8px 8px;pointer-events:none;z-index:0}
+  .cloud{position:fixed;font-size:60px;opacity:.9;color:#fff;animation:cloud 30s linear infinite;pointer-events:none;z-index:1;text-shadow:0 0 5px rgba(0,0,0,.3)}
+  @keyframes cloud{from{transform:translateX(-100px)}to{transform:translateX(100vw)}}
+  header{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:#5a3a1e;background-image:linear-gradient(180deg,#6b4423,#4a2f16);border-bottom:8px solid #2a1a0a;position:sticky;top:0;z-index:100;box-shadow:0 8px 0 #000}
+  .logo{font-size:40px;font-weight:bold;letter-spacing:4px;color:#7fb238;text-shadow:4px 4px 0 #2a1a0a,6px 6px 0 #000;position:relative;padding:10px}
+  .logo::before{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.1) 40%,rgba(255,255,255,.1) 60%,transparent 60%);background-size:16px 16px}
+  nav a{color:#fff;text-decoration:none;margin:0 10px;font-size:12px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;padding:10px 15px;background:#7fb238;background-image:linear-gradient(180deg,#8fc548,#6fa028);border:3px solid #2a1a0a;transition:.1s;display:inline-block;box-shadow:3px 3px 0 #2a1a0a;text-shadow:2px 2px 0 #2a1a0a}
+  nav a:hover{background:linear-gradient(180deg,#9fd558,#7fb238);transform:translate(-1px,-1px);box-shadow:4px 4px 0 #2a1a0a}
+  nav a:nth-child(2){background:#c5823a;background-image:linear-gradient(180deg,#d5923a,#a56f28)}
+  nav a:nth-child(3){background:#8b6b3a;background-image:linear-gradient(180deg,#a07a3a,#7a5a2a)}
+  .cart-btn{cursor:pointer;background:#8b6b3a;background-image:linear-gradient(180deg,#a07a3a,#7a5a2a);border:3px solid #2a1a0a;padding:10px 20px;font-family:inherit;font-weight:bold;font-size:12px;letter-spacing:1px;color:#fff;text-shadow:2px 2px 0 #2a1a0a;box-shadow:4px 4px 0 #2a1a0a;text-transform:uppercase;transition:.1s}
+  .cart-btn:hover{background:linear-gradient(180deg,#b08a4a,#8b6b3a);transform:translate(-1px,-1px);box-shadow:5px 5px 0 #2a1a0a}
+  .hero{padding:80px 40px 60px;text-align:center;position:relative;z-index:2}
+  .hero h1{font-size:120px;font-weight:bold;letter-spacing:6px;color:#fff;text-shadow:6px 6px 0 #2a1a0a,12px 12px 0 #000;margin-bottom:20px;font-family:'Courier New',monospace}
+  .hero p{font-size:18px;letter-spacing:2px;color:#fff;font-weight:bold;margin-top:20px;background:#5a3a1e;display:inline-block;padding:12px 25px;border:4px solid #2a1a0a;text-shadow:2px 2px 0 #2a1a0a;box-shadow:4px 4px 0 #2a1a0a}
+  .hero .mc-block{display:inline-block;width:40px;height:40px;background:#7fb238;border:3px solid #2a1a0a;margin:0 5px;vertical-align:middle;box-shadow:3px 3px 0 #2a1a0a}
+  .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;padding:40px;max-width:1400px;margin:0 auto;position:relative;z-index:2}
+  .card{background:#8b6b3a;background-image:linear-gradient(180deg,#a07a3a,#7a5a2a);border:5px solid #2a1a0a;padding:20px;text-align:center;transition:.1s;position:relative;box-shadow:6px 6px 0 #2a1a0a}
+  .card::before{content:'';position:absolute;inset:5px;border:1px solid rgba(255,255,255,.1);pointer-events:none}
+  .card:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 #2a1a0a}
+  .card .emoji{font-size:70px;margin:15px 0;background:#5a3a1e;border:3px solid #2a1a0a;padding:15px;display:inline-block;box-shadow:inset 3px 3px 0 rgba(0,0,0,.3)}
+  .card h3{font-size:14px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin:12px 0;color:#fff;text-shadow:2px 2px 0 #2a1a0a;background:#5a3a1e;padding:6px;border:2px solid #2a1a0a}
+  .card .price{font-size:22px;font-weight:bold;color:#ffd700;margin:10px 0;text-shadow:2px 2px 0 #2a1a0a}
+  .card button{background:#7fb238;background-image:linear-gradient(180deg,#8fc548,#6fa028);color:#fff;border:3px solid #2a1a0a;padding:10px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:bold;text-transform:uppercase;width:100%;text-shadow:2px 2px 0 #2a1a0a;box-shadow:3px 3px 0 #2a1a0a;transition:.1s;letter-spacing:1px}
+  .card button:hover{background:linear-gradient(180deg,#9fd558,#7fb238);transform:translate(-1px,-1px);box-shadow:4px 4px 0 #2a1a0a}
+  .card button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #2a1a0a}
+  .cart-panel{position:fixed;top:0;right:-450px;width:450px;height:100vh;background:#5a3a1e;background-image:linear-gradient(180deg,#6b4423,#4a2f16);padding:30px;transition:.4s;z-index:200;overflow-y:auto;border-left:6px solid #2a1a0a;box-shadow:-10px 0 0 #000}
+  .cart-panel.open{right:0}
+  .cart-panel h2{font-size:24px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:25px;text-shadow:3px 3px 0 #2a1a0a;background:#7fb238;padding:10px;border:3px solid #2a1a0a;text-align:center}
+  .cart-item{display:flex;justify-content:space-between;padding:10px;background:#7a5a2a;border:3px solid #2a1a0a;margin-bottom:8px;font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;color:#fff;text-shadow:1px 1px 0 #2a1a0a}
+  .total{margin-top:20px;font-size:18px;font-weight:bold;color:#fff;text-align:center;padding:15px;background:#7fb238;border:4px solid #2a1a0a;text-shadow:2px 2px 0 #2a1a0a;box-shadow:4px 4px 0 #2a1a0a}
+  .checkout{width:100%;margin-top:20px;padding:15px;background:#7fb238;background-image:linear-gradient(180deg,#8fc548,#6fa028);color:#fff;border:4px solid #2a1a0a;font-family:inherit;font-size:14px;font-weight:bold;text-transform:uppercase;cursor:pointer;text-shadow:2px 2px 0 #2a1a0a;box-shadow:5px 5px 0 #2a1a0a;letter-spacing:2px;transition:.1s}
+  .checkout:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #2a1a0a}
+  .close{position:absolute;top:15px;right:20px;cursor:pointer;font-size:24px;color:#fff;font-weight:bold;background:#c44;border:2px solid #2a1a0a;width:36px;height:36px;display:flex;align-items:center;justify-content:center;text-shadow:1px 1px 0 #000;box-shadow:2px 2px 0 #2a1a0a}
+  .del{color:#ff0;cursor:pointer;font-weight:bold;text-shadow:1px 1px 0 #000}
+  footer{text-align:center;padding:40px;color:#fff;font-size:11px;letter-spacing:2px;text-transform:uppercase;background:#5a3a1e;border-top:6px solid #2a1a0a;margin-top:60px;position:relative;z-index:2;font-weight:bold;text-shadow:2px 2px 0 #2a1a0a}
+/* ===== MOBILE PATCH ===== */
+@media (max-width: 900px) {
+  header { flex-wrap: wrap !important; padding: 14px 20px !important; gap: 10px !important; }
+  .logo { font-size: 22px !important; letter-spacing: 3px !important; }
+  nav { order: 3; width: 100%; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; margin-top: 8px; }
+  nav a { margin: 0 !important; font-size: 11px !important; padding: 6px 10px !important; }
+  .cart-btn, .cart-icon { font-size: 11px !important; padding: 8px 14px !important; }
+  .hero { height: auto !important; min-height: 55vh !important; padding: 60px 20px !important; }
+  .hero h1 { font-size: 48px !important; letter-spacing: 6px !important; line-height: 1.1 !important; }
+  .hero p { font-size: 12px !important; letter-spacing: 2px !important; }
+  .hero .eyebrow, .hero .ornament, .hero .label { font-size: 10px !important; letter-spacing: 4px !important; margin-bottom: 15px !important; }
+  .kinetic-text { font-size: 80px !important; }
+  .section-title, .section-intro h2 { font-size: 26px !important; letter-spacing: 4px !important; }
+  .section-intro { padding: 40px 20px 20px !important; }
+  .products { grid-template-columns: 1fr !important; gap: 20px !important; padding: 30px 20px 60px !important; }
+  .card { padding: 20px 15px !important; transform: none !important; }
+  .card-img, .card .card-img { height: 220px !important; font-size: 60px !important; }
+  .card .emoji { font-size: 60px !important; }
+  .card h3 { font-size: 14px !important; }
+  .card .price { font-size: 16px !important; }
+  .card button { padding: 10px 18px !important; font-size: 11px !important; }
+  .cart-panel, .cart-sidebar { width: 100% !important; right: -100% !important; padding: 25px 20px !important; }
+  .cart-panel.open, .cart-sidebar.open { right: 0 !important; }
+  .cart-panel h2, .cart-sidebar h2 { font-size: 20px !important; letter-spacing: 3px !important; }
+  .total, .total-lux { font-size: 16px !important; }
+  .checkout, .checkout-btn { padding: 14px !important; font-size: 12px !important; }
+  footer { padding: 30px 20px !important; font-size: 10px !important; letter-spacing: 2px !important; }
+  .toast, .notification { left: 20px !important; right: 20px !important; transform: translateY(100px) !important; }
+  .toast.show, .notification.show { transform: translateY(0) !important; }
+  .search-box { padding: 15px 20px !important; }
+  .search-box input { font-size: 15px !important; padding: 10px !important; }
+  .loader h1 { font-size: 36px !important; letter-spacing: 12px !important; }
+  .modal-content, .modal-inner { width: 95% !important; padding: 20px !important; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 36px !important; letter-spacing: 3px !important; }
+  .hero { min-height: 45vh !important; padding: 40px 15px !important; }
+  .card-img, .card .card-img { height: 180px !important; font-size: 50px !important; }
+  .logo { font-size: 18px !important; letter-spacing: 2px !important; }
+  nav a { font-size: 10px !important; padding: 5px 8px !important; }
+  .kinetic-text { font-size: 60px !important; }
+  .hero .ornament, .hero .eyebrow { letter-spacing: 2px !important; }
+}
+/* ===== /MOBILE PATCH ===== */
+</style>
+</head>
+<body>
+<div class="cloud" style="top:10%;animation-delay:0s">☁</div>
+<div class="cloud" style="top:30%;animation-delay:10s;font-size:40px">☁</div>
+<header>
+  <div class="logo">PLAG</div>
+  <nav><a href="#p">МАГАЗИН</a><a href="#p">НОВОЕ</a><a href="#p">ИНФО</a></nav>
+  <button class="cart-btn" onclick="toggleCart()">⛏ СУНДУК (<span id="count">0</span>)</button>
+</header>
+<section class="hero">
+  <h1>PLAG</h1>
+  <p><span class="mc-block"></span>СТРОЙ СВОЙ СТИЛЬ<span class="mc-block"></span></p>
+</section>
+<div class="products" id="p"></div>
+<div class="cart-panel" id="cart">
+  <span class="close" onclick="toggleCart()">✕</span>
+  <h2>⛏ СУНДУК</h2>
+  <div id="cartItems"></div>
+  <div class="total" id="total"></div>
+  <button class="checkout" onclick="checkout()">⛏ КУПИТЬ</button>
+</div>
+<footer>⛏ PLAG — MINECRAFT EDITION — BLOCK BY BLOCK ⛏</footer>
+<script>
+const products=[
+  {id:1,name:'Худи Oversize',price:4500,emoji:'👕'},
+  {id:2,name:'Джинсы Straight',price:5500,emoji:'👖'},
+  {id:3,name:'Кроссовки White',price:8500,emoji:'👟'},
+  {id:4,name:'Куртка Bomber',price:7500,emoji:'🧥'},
+  {id:5,name:'Футболка Basic',price:2500,emoji:'👕'},
+  {id:6,name:'Кепка Classic',price:1500,emoji:'🧢'},
+  {id:7,name:'Свитер Wool',price:5500,emoji:'🧶'},
+  {id:8,name:'Сумка Canvas',price:3500,emoji:'👜'}
+];
+let cart=[];
+function render(){document.getElementById('p').innerHTML=products.map(p=>`
+  <div class="card"><div class="emoji">${p.emoji}</div><h3>${p.name}</h3>
+  <div class="price">${p.price.toLocaleString()} ₽</div>
+  <button onclick="add(${p.id})">КУПИТЬ</button></div>`).join('');}
+function add(id){cart.push(products.find(x=>x.id===id));update();}
+function update(){
+  document.getElementById('count').textContent=cart.length;
+  document.getElementById('cartItems').innerHTML=cart.map((c,i)=>
+    `<div class="cart-item"><span>${c.name}</span><span>${c.price}₽ <span class="del" onclick="rm(${i})">✕</span></span></div>`).join('')||'<p style="text-align:center;color:#fff;font-weight:bold;text-shadow:1px 1px 0 #000">СУНДУК ПУСТ</p>';
+  document.getElementById('total').textContent='ИТОГО: '+cart.reduce((s,c)=>s+c.price,0).toLocaleString()+' ₽';
+}
+function rm(i){cart.splice(i,1);update();}
+function toggleCart(){document.getElementById('cart').classList.toggle('open');}
+function checkout(){if(!cart.length)return alert('СУНДУК ПУСТ!');alert('⛏ ПОКУПКА СОВЕРШЕНА!\nСумма: '+cart.reduce((s,c)=>s+c.price,0)+' ₽');cart=[];update();toggleCart();}
+render();
+</script>
+</body>
+</html>

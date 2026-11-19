@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLAG — Apple Style</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,'SF Pro Display','Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  body{background:#fff;color:#1d1d1f;overflow-x:hidden}
+  header{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:14px 60px;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid #d2d2d7;z-index:100}
+  .logo{font-size:21px;font-weight:600;letter-spacing:-.5px}
+  nav a{color:#1d1d1f;text-decoration:none;margin:0 18px;font-size:13px;opacity:.85;transition:.2s}
+  nav a:hover{opacity:1}
+  .cart-btn{background:#0071e3;color:#fff;border:none;padding:8px 18px;border-radius:980px;cursor:pointer;font-family:inherit;font-size:13px;transition:.2s}
+  .cart-btn:hover{background:#0077ed}
+  .hero{padding:140px 40px 100px;text-align:center;background:linear-gradient(180deg,#fbfbfd,#fff)}
+  .hero h1{font-size:96px;font-weight:700;letter-spacing:-3px;line-height:1.05;margin-bottom:18px;background:linear-gradient(135deg,#1d1d1f,#6e6e73);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{font-size:24px;color:#6e6e73;font-weight:400;letter-spacing:-.3px}
+  .hero .cta{margin-top:35px;display:inline-block;background:#0071e3;color:#fff;padding:14px 32px;border-radius:980px;text-decoration:none;font-size:17px;transition:.2s}
+  .hero .cta:hover{background:#0077ed}
+  .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:60px;max-width:1400px;margin:0 auto}
+  .card{background:#fbfbfd;border-radius:18px;padding:40px;text-align:center;transition:.35s;border:1px solid #f0f0f2;cursor:pointer}
+  .card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.08);background:#fff}
+  .card .emoji{font-size:90px;margin-bottom:20px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.08))}
+  .card h3{font-size:21px;font-weight:600;letter-spacing:-.3px;margin-bottom:6px}
+  .card .price{font-size:17px;color:#6e6e73;margin-bottom:20px}
+  .card button{background:#1d1d1f;color:#fff;border:none;padding:12px 28px;border-radius:980px;cursor:pointer;font-family:inherit;font-size:14px;transition:.2s}
+  .card button:hover{background:#000}
+  .cart-panel{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:rgba(255,255,255,.95);backdrop-filter:blur(30px);padding:40px;transition:.4s;z-index:200;overflow-y:auto;box-shadow:-20px 0 60px rgba(0,0,0,.1)}
+  .cart-panel.open{right:0}
+  .cart-panel h2{font-size:28px;font-weight:600;letter-spacing:-.5px;margin-bottom:24px}
+  .cart-item{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid #eee;font-size:15px}
+  .total{margin-top:24px;font-size:22px;font-weight:600}
+  .checkout{width:100%;margin-top:24px;padding:16px;background:#0071e3;color:#fff;border:none;border-radius:980px;font-family:inherit;font-size:17px;cursor:pointer}
+  .checkout:hover{background:#0077ed}
+  .close{position:absolute;top:20px;right:20px;cursor:pointer;font-size:22px;color:#6e6e73}
+  .del{color:#ff3b30;cursor:pointer;font-weight:600}
+  footer{text-align:center;padding:40px;color:#6e6e73;font-size:12px;border-top:1px solid #f0f0f2}
+/* ===== MOBILE PATCH ===== */
+@media (max-width: 900px) {
+  header { flex-wrap: wrap !important; padding: 14px 20px !important; gap: 10px !important; }
+  .logo { font-size: 22px !important; letter-spacing: 3px !important; }
+  nav { order: 3; width: 100%; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; margin-top: 8px; }
+  nav a { margin: 0 !important; font-size: 11px !important; padding: 6px 10px !important; }
+  .cart-btn, .cart-icon { font-size: 11px !important; padding: 8px 14px !important; }
+  .hero { height: auto !important; min-height: 55vh !important; padding: 60px 20px !important; }
+  .hero h1 { font-size: 48px !important; letter-spacing: 6px !important; line-height: 1.1 !important; }
+  .hero p { font-size: 12px !important; letter-spacing: 2px !important; }
+  .hero .eyebrow, .hero .ornament, .hero .label { font-size: 10px !important; letter-spacing: 4px !important; margin-bottom: 15px !important; }
+  .kinetic-text { font-size: 80px !important; }
+  .section-title, .section-intro h2 { font-size: 26px !important; letter-spacing: 4px !important; }
+  .section-intro { padding: 40px 20px 20px !important; }
+  .products { grid-template-columns: 1fr !important; gap: 20px !important; padding: 30px 20px 60px !important; }
+  .card { padding: 20px 15px !important; transform: none !important; }
+  .card-img, .card .card-img { height: 220px !important; font-size: 60px !important; }
+  .card .emoji { font-size: 60px !important; }
+  .card h3 { font-size: 14px !important; }
+  .card .price { font-size: 16px !important; }
+  .card button { padding: 10px 18px !important; font-size: 11px !important; }
+  .cart-panel, .cart-sidebar { width: 100% !important; right: -100% !important; padding: 25px 20px !important; }
+  .cart-panel.open, .cart-sidebar.open { right: 0 !important; }
+  .cart-panel h2, .cart-sidebar h2 { font-size: 20px !important; letter-spacing: 3px !important; }
+  .total, .total-lux { font-size: 16px !important; }
+  .checkout, .checkout-btn { padding: 14px !important; font-size: 12px !important; }
+  footer { padding: 30px 20px !important; font-size: 10px !important; letter-spacing: 2px !important; }
+  .toast, .notification { left: 20px !important; right: 20px !important; transform: translateY(100px) !important; }
+  .toast.show, .notification.show { transform: translateY(0) !important; }
+  .search-box { padding: 15px 20px !important; }
+  .search-box input { font-size: 15px !important; padding: 10px !important; }
+  .loader h1 { font-size: 36px !important; letter-spacing: 12px !important; }
+  .modal-content, .modal-inner { width: 95% !important; padding: 20px !important; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 36px !important; letter-spacing: 3px !important; }
+  .hero { min-height: 45vh !important; padding: 40px 15px !important; }
+  .card-img, .card .card-img { height: 180px !important; font-size: 50px !important; }
+  .logo { font-size: 18px !important; letter-spacing: 2px !important; }
+  nav a { font-size: 10px !important; padding: 5px 8px !important; }
+  .kinetic-text { font-size: 60px !important; }
+  .hero .ornament, .hero .eyebrow { letter-spacing: 2px !important; }
+}
+/* ===== /MOBILE PATCH ===== */
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PLAG</div>
+  <nav><a href="#p">Магазин</a><a href="#p">Новинки</a><a href="#p">Поддержка</a></nav>
+  <button class="cart-btn" onclick="toggleCart()">Корзина (<span id="count">0</span>)</button>
+</header>
+<section class="hero">
+  <h1>PLAG.<br>Одежда. Переосмыслена.</h1>
+  <p>Минимум лишнего. Максимум смысла.</p>
+  <a href="#p" class="cta">Смотреть коллекцию →</a>
+</section>
+<div class="products" id="p"></div>
+<div class="cart-panel" id="cart">
+  <span class="close" onclick="toggleCart()">✕</span>
+  <h2>Корзина</h2>
+  <div id="cartItems"></div>
+  <div class="total" id="total"></div>
+  <button class="checkout" onclick="checkout()">Оформить заказ</button>
+</div>
+<footer>© 2024 PLAG — Designed with care</footer>
+<script>
+const products=[
+  {id:1,name:'Худи Oversize',price:4500,emoji:'👕'},
+  {id:2,name:'Джинсы Straight',price:5500,emoji:'👖'},
+  {id:3,name:'Кроссовки White',price:8500,emoji:'👟'},
+  {id:4,name:'Куртка Bomber',price:7500,emoji:'🧥'},
+  {id:5,name:'Футболка Basic',price:2500,emoji:'👕'},
+  {id:6,name:'Кепка Classic',price:1500,emoji:'🧢'},
+  {id:7,name:'Свитер Wool',price:5500,emoji:'🧶'},
+  {id:8,name:'Сумка Canvas',price:3500,emoji:'👜'}
+];
+let cart=[];
+function render(){document.getElementById('p').innerHTML=products.map(p=>`
+  <div class="card"><div class="emoji">${p.emoji}</div><h3>${p.name}</h3>
+  <div class="price">${p.price.toLocaleString()} ₽</div>
+  <button onclick="add(${p.id})">Купить</button></div>`).join('');}
+function add(id){cart.push(products.find(x=>x.id===id));update();}
+function update(){
+  document.getElementById('count').textContent=cart.length;
+  document.getElementById('cartItems').innerHTML=cart.map((c,i)=>
+    `<div class="cart-item"><span>${c.name}</span><span>${c.price.toLocaleString()} ₽ <span class="del" onclick="rm(${i})">✕</span></span></div>`).join('')||'<p style="color:#6e6e73">Корзина пуста</p>';
+  document.getElementById('total').textContent='Итого: '+cart.reduce((s,c)=>s+c.price,0).toLocaleString()+' ₽';
+}
+function rm(i){cart.splice(i,1);update();}
+function toggleCart(){document.getElementById('cart').classList.toggle('open');}
+function checkout(){if(!cart.length)return alert('Корзина пуста');alert('Заказ оформлен! Сумма: '+cart.reduce((s,c)=>s+c.price,0)+' ₽');cart=[];update();toggleCart();}
+render();
+</script>
+</body>
+</html>

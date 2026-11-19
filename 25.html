@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLAG — Maison Margiela Style</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Helvetica Neue',Arial,sans-serif}
+  body{background:#fafafa;color:#1a1a1a;overflow-x:hidden}
+  header{display:flex;justify-content:space-between;align-items:center;padding:22px 50px;background:#fafafa;border-bottom:1px solid #e0e0e0;position:sticky;top:0;z-index:100}
+  .logo{font-size:22px;font-weight:400;letter-spacing:6px;color:#1a1a1a}
+  .logo-tag{display:inline-block;background:#fff;border:1px solid #ccc;padding:4px 10px;font-size:10px;letter-spacing:2px;margin-left:12px;color:#666}
+  nav a{color:#666;text-decoration:none;margin:0 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;transition:.3s}
+  nav a:hover{color:#1a1a1a}
+  .cart-btn{background:#fff;border:1px solid #ccc;color:#1a1a1a;padding:9px 22px;cursor:pointer;font-family:inherit;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:.3s}
+  .cart-btn:hover{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+  .hero{height:75vh;display:flex;align-items:center;justify-content:center;text-align:center;background:#fff;position:relative;border-bottom:1px solid #e0e0e0}
+  .hero-content{position:relative;z-index:2}
+  .hero .tag{display:inline-block;background:#fff;border:1px solid #ccc;padding:6px 16px;font-size:10px;letter-spacing:3px;color:#666;margin-bottom:30px}
+  .hero h1{font-size:90px;font-weight:300;letter-spacing:15px;color:#1a1a1a;margin-bottom:20px;line-height:1}
+  .hero p{font-size:12px;letter-spacing:5px;text-transform:uppercase;color:#999}
+  .hero .numbers{display:flex;gap:30px;justify-content:center;margin-top:40px}
+  .hero .numbers span{font-size:12px;letter-spacing:2px;color:#ccc;font-weight:300}
+  .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;padding:70px 50px;max-width:1400px;margin:0 auto}
+  .card{background:#fff;border:1px solid #e8e8e8;padding:30px;text-align:center;transition:.3s;position:relative}
+  .card::before{content:attr(data-tag);position:absolute;top:10px;left:10px;background:#fff;border:1px solid #ddd;padding:3px 8px;font-size:9px;letter-spacing:1px;color:#999}
+  .card:hover{border-color:#1a1a1a;box-shadow:0 10px 30px rgba(0,0,0,.05)}
+  .card .emoji{font-size:80px;margin:20px 0;filter:grayscale(1) opacity(.8)}
+  .card h3{font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;margin:18px 0 8px;color:#1a1a1a}
+  .card .price{font-size:15px;color:#999;margin-bottom:22px;letter-spacing:1px;font-weight:300}
+  .card button{background:none;border:1px solid #1a1a1a;padding:11px 25px;cursor:pointer;font-family:inherit;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:.3s;width:100%;color:#1a1a1a}
+  .card button:hover{background:#1a1a1a;color:#fff}
+  .cart-panel{position:fixed;top:0;right:-450px;width:450px;height:100vh;background:#fff;padding:50px;transition:.4s;z-index:200;overflow-y:auto;border-left:1px solid #e0e0e0;box-shadow:-20px 0 50px rgba(0,0,0,.05)}
+  .cart-panel.open{right:0}
+  .cart-panel h2{font-size:14px;font-weight:500;letter-spacing:5px;text-transform:uppercase;margin-bottom:35px;padding-bottom:20px;border-bottom:1px solid #e0e0e0}
+  .cart-item{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid #f0f0f0;font-size:11px;letter-spacing:1px;color:#666;font-weight:300}
+  .total{margin-top:30px;font-size:15px;letter-spacing:2px;padding:18px 0;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a;color:#1a1a1a}
+  .checkout{width:100%;margin-top:25px;padding:16px;background:#1a1a1a;color:#fff;border:none;font-family:inherit;font-size:10px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.3s}
+  .checkout:hover{background:#333}
+  .close{position:absolute;top:20px;right:25px;cursor:pointer;font-size:20px;color:#999}
+  .del{color:#999;cursor:pointer}
+  footer{text-align:center;padding:60px;color:#ccc;font-size:9px;letter-spacing:4px;text-transform:uppercase;border-top:1px solid #e0e0e0;margin-top:30px}
+/* ===== MOBILE PATCH ===== */
+@media (max-width: 900px) {
+  header { flex-wrap: wrap !important; padding: 14px 20px !important; gap: 10px !important; }
+  .logo { font-size: 22px !important; letter-spacing: 3px !important; }
+  nav { order: 3; width: 100%; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; margin-top: 8px; }
+  nav a { margin: 0 !important; font-size: 11px !important; padding: 6px 10px !important; }
+  .cart-btn, .cart-icon { font-size: 11px !important; padding: 8px 14px !important; }
+  .hero { height: auto !important; min-height: 55vh !important; padding: 60px 20px !important; }
+  .hero h1 { font-size: 48px !important; letter-spacing: 6px !important; line-height: 1.1 !important; }
+  .hero p { font-size: 12px !important; letter-spacing: 2px !important; }
+  .hero .eyebrow, .hero .ornament, .hero .label { font-size: 10px !important; letter-spacing: 4px !important; margin-bottom: 15px !important; }
+  .kinetic-text { font-size: 80px !important; }
+  .section-title, .section-intro h2 { font-size: 26px !important; letter-spacing: 4px !important; }
+  .section-intro { padding: 40px 20px 20px !important; }
+  .products { grid-template-columns: 1fr !important; gap: 20px !important; padding: 30px 20px 60px !important; }
+  .card { padding: 20px 15px !important; transform: none !important; }
+  .card-img, .card .card-img { height: 220px !important; font-size: 60px !important; }
+  .card .emoji { font-size: 60px !important; }
+  .card h3 { font-size: 14px !important; }
+  .card .price { font-size: 16px !important; }
+  .card button { padding: 10px 18px !important; font-size: 11px !important; }
+  .cart-panel, .cart-sidebar { width: 100% !important; right: -100% !important; padding: 25px 20px !important; }
+  .cart-panel.open, .cart-sidebar.open { right: 0 !important; }
+  .cart-panel h2, .cart-sidebar h2 { font-size: 20px !important; letter-spacing: 3px !important; }
+  .total, .total-lux { font-size: 16px !important; }
+  .checkout, .checkout-btn { padding: 14px !important; font-size: 12px !important; }
+  footer { padding: 30px 20px !important; font-size: 10px !important; letter-spacing: 2px !important; }
+  .toast, .notification { left: 20px !important; right: 20px !important; transform: translateY(100px) !important; }
+  .toast.show, .notification.show { transform: translateY(0) !important; }
+  .search-box { padding: 15px 20px !important; }
+  .search-box input { font-size: 15px !important; padding: 10px !important; }
+  .loader h1 { font-size: 36px !important; letter-spacing: 12px !important; }
+  .modal-content, .modal-inner { width: 95% !important; padding: 20px !important; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 36px !important; letter-spacing: 3px !important; }
+  .hero { min-height: 45vh !important; padding: 40px 15px !important; }
+  .card-img, .card .card-img { height: 180px !important; font-size: 50px !important; }
+  .logo { font-size: 18px !important; letter-spacing: 2px !important; }
+  nav a { font-size: 10px !important; padding: 5px 8px !important; }
+  .kinetic-text { font-size: 60px !important; }
+  .hero .ornament, .hero .eyebrow { letter-spacing: 2px !important; }
+}
+/* ===== /MOBILE PATCH ===== */
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PLAG <span class="logo-tag">0 23</span></div>
+  <nav><a href="#p">Collections</a><a href="#p">Archive</a><a href="#p">Maison</a></nav>
+  <button class="cart-btn" onclick="toggleCart()">Bag (<span id="count">0</span>)</button>
+</header>
+<section class="hero">
+  <div class="hero-content">
+    <div class="tag">Artisanal Collection</div>
+    <h1>PLAG</h1>
+    <p>Deconstruction. Anonymity. Craft.</p>
+    <div class="numbers"><span>0</span><span>1</span><span>10</span><span>23</span></div>
+  </div>
+</section>
+<div class="products" id="p"></div>
+<div class="cart-panel" id="cart">
+  <span class="close" onclick="toggleCart()">✕</span>
+  <h2>Shopping Bag</h2>
+  <div id="cartItems"></div>
+  <div class="total" id="total"></div>
+  <button class="checkout" onclick="checkout()">Proceed to Checkout</button>
+</div>
+<footer>PLAG — Maison Margiela Style — 2026</footer>
+<script>
+const products=[
+  {id:1,name:'Худи Oversize',price:4500,emoji:'👕',tag:'0 1'},
+  {id:2,name:'Джинсы Straight',price:5500,emoji:'👖',tag:'0 10'},
+  {id:3,name:'Кроссовки White',price:8500,emoji:'👟',tag:'22'},
+  {id:4,name:'Куртка Bomber',price:7500,emoji:'🧥',tag:'0 4'},
+  {id:5,name:'Футболка Basic',price:2500,emoji:'👕',tag:'0 1'},
+  {id:6,name:'Кепка Classic',price:1500,emoji:'🧢',tag:'11'},
+  {id:7,name:'Свитер Wool',price:5500,emoji:'🧶',tag:'0 5'},
+  {id:8,name:'Сумка Canvas',price:3500,emoji:'👜',tag:'0 8'}
+];
+let cart=[];
+function render(){document.getElementById('p').innerHTML=products.map(p=>`
+  <div class="card" data-tag="${p.tag}"><div class="emoji">${p.emoji}</div><h3>${p.name}</h3>
+  <div class="price">${p.price.toLocaleString()} ₽</div>
+  <button onclick="add(${p.id})">Add to Bag</button></div>`).join('');}
+function add(id){cart.push(products.find(x=>x.id===id));update();}
+function update(){
+  document.getElementById('count').textContent=cart.length;
+  document.getElementById('cartItems').innerHTML=cart.map((c,i)=>
+    `<div class="cart-item"><span>${c.name}</span><span>${c.price.toLocaleString()} ₽ <span class="del" onclick="rm(${i})">✕</span></span></div>`).join('')||'<p style="text-align:center;color:#ccc;font-style:italic">Your bag is empty</p>';
+  document.getElementById('total').textContent='Total: '+cart.reduce((s,c)=>s+c.price,0).toLocaleString()+' ₽';
+}
+function rm(i){cart.splice(i,1);update();}
+function toggleCart(){document.getElementById('cart').classList.toggle('open');}
+function checkout(){if(!cart.length)return alert('Your bag is empty');alert('✓ Order placed! Total: '+cart.reduce((s,c)=>s+c.price,0)+' ₽');cart=[];update();toggleCart();}
+render();
+</script>
+</body>
+</html>

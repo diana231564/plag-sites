@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLAG — Минимализм</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Helvetica Neue',Arial,sans-serif; }
+  body { background:#fafafa; color:#111; }
+  header { display:flex; justify-content:space-between; align-items:center; padding:25px 50px; border-bottom:1px solid #eee; position:sticky; top:0; background:rgba(250,250,250,.95); backdrop-filter:blur(10px); z-index:100; }
+  .logo { font-size:28px; font-weight:900; letter-spacing:5px; }
+  nav a { margin:0 15px; text-decoration:none; color:#111; font-size:13px; letter-spacing:2px; text-transform:uppercase; transition:.3s; }
+  nav a:hover { opacity:.5; }
+  .icons span { margin-left:15px; cursor:pointer; font-size:18px; }
+  .hero { height:80vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; background:linear-gradient(135deg,#f5f5f5,#e8e8e8); }
+  .hero h1 { font-size:80px; font-weight:200; letter-spacing:15px; margin-bottom:20px; }
+  .hero p { font-size:16px; color:#888; letter-spacing:3px; text-transform:uppercase; }
+  .btn { margin-top:40px; padding:15px 50px; border:1px solid #111; background:none; cursor:pointer; font-size:12px; letter-spacing:3px; text-transform:uppercase; transition:.4s; }
+  .btn:hover { background:#111; color:#fff; }
+  .products { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:40px; padding:80px 50px; }
+  .card { cursor:pointer; transition:.4s; }
+  .card:hover { transform:translateY(-5px); }
+  .card-img { height:350px; background:#e8e8e8; display:flex; align-items:center; justify-content:center; font-size:60px; margin-bottom:15px; }
+  .card h3 { font-size:15px; font-weight:400; margin-bottom:5px; }
+  .card p { font-size:14px; color:#888; }
+  .card button { margin-top:10px; padding:8px 20px; border:1px solid #111; background:none; cursor:pointer; font-size:11px; letter-spacing:2px; transition:.3s; }
+  .card button:hover { background:#111; color:#fff; }
+  .cart-sidebar { position:fixed; right:-400px; top:0; width:400px; height:100vh; background:#fff; box-shadow:-5px 0 30px rgba(0,0,0,.1); padding:40px; transition:.4s; z-index:200; overflow-y:auto; }
+  .cart-sidebar.open { right:0; }
+  .cart-sidebar h2 { font-weight:300; letter-spacing:4px; margin-bottom:30px; }
+  .cart-item { display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid #eee; font-size:14px; }
+  .close { position:absolute; top:20px; right:20px; cursor:pointer; font-size:20px; }
+  .total { margin-top:20px; font-weight:600; font-size:18px; }
+  .search-box { display:none; padding:20px 50px; border-bottom:1px solid #eee; }
+  .search-box input { width:100%; padding:15px; border:none; font-size:18px; background:none; outline:none; }
+  .search-box.active { display:block; }
+  .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(100px); background:#111; color:#fff; padding:15px 30px; letter-spacing:2px; font-size:12px; transition:.4s; z-index:300; }
+  .toast.show { transform:translateX(-50%) translateY(0); }
+  .counter { background:#111; color:#fff; border-radius:50%; padding:2px 7px; font-size:10px; }
+/* ===== MOBILE PATCH ===== */
+@media (max-width: 900px) {
+  header { flex-wrap: wrap !important; padding: 14px 20px !important; gap: 10px !important; }
+  .logo { font-size: 22px !important; letter-spacing: 3px !important; }
+  nav { order: 3; width: 100%; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; margin-top: 8px; }
+  nav a { margin: 0 !important; font-size: 11px !important; padding: 6px 10px !important; }
+  .cart-btn, .cart-icon { font-size: 11px !important; padding: 8px 14px !important; }
+  .hero { height: auto !important; min-height: 55vh !important; padding: 60px 20px !important; }
+  .hero h1 { font-size: 48px !important; letter-spacing: 6px !important; line-height: 1.1 !important; }
+  .hero p { font-size: 12px !important; letter-spacing: 2px !important; }
+  .hero .eyebrow, .hero .ornament, .hero .label { font-size: 10px !important; letter-spacing: 4px !important; margin-bottom: 15px !important; }
+  .kinetic-text { font-size: 80px !important; }
+  .section-title, .section-intro h2 { font-size: 26px !important; letter-spacing: 4px !important; }
+  .section-intro { padding: 40px 20px 20px !important; }
+  .products { grid-template-columns: 1fr !important; gap: 20px !important; padding: 30px 20px 60px !important; }
+  .card { padding: 20px 15px !important; transform: none !important; }
+  .card-img, .card .card-img { height: 220px !important; font-size: 60px !important; }
+  .card .emoji { font-size: 60px !important; }
+  .card h3 { font-size: 14px !important; }
+  .card .price { font-size: 16px !important; }
+  .card button { padding: 10px 18px !important; font-size: 11px !important; }
+  .cart-panel, .cart-sidebar { width: 100% !important; right: -100% !important; padding: 25px 20px !important; }
+  .cart-panel.open, .cart-sidebar.open { right: 0 !important; }
+  .cart-panel h2, .cart-sidebar h2 { font-size: 20px !important; letter-spacing: 3px !important; }
+  .total, .total-lux { font-size: 16px !important; }
+  .checkout, .checkout-btn { padding: 14px !important; font-size: 12px !important; }
+  footer { padding: 30px 20px !important; font-size: 10px !important; letter-spacing: 2px !important; }
+  .toast, .notification { left: 20px !important; right: 20px !important; transform: translateY(100px) !important; }
+  .toast.show, .notification.show { transform: translateY(0) !important; }
+  .search-box { padding: 15px 20px !important; }
+  .search-box input { font-size: 15px !important; padding: 10px !important; }
+  .loader h1 { font-size: 36px !important; letter-spacing: 12px !important; }
+  .modal-content, .modal-inner { width: 95% !important; padding: 20px !important; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 36px !important; letter-spacing: 3px !important; }
+  .hero { min-height: 45vh !important; padding: 40px 15px !important; }
+  .card-img, .card .card-img { height: 180px !important; font-size: 50px !important; }
+  .logo { font-size: 18px !important; letter-spacing: 2px !important; }
+  nav a { font-size: 10px !important; padding: 5px 8px !important; }
+  .kinetic-text { font-size: 60px !important; }
+  .hero .ornament, .hero .eyebrow { letter-spacing: 2px !important; }
+}
+/* ===== /MOBILE PATCH ===== */
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PLAG</div>
+  <nav>
+    <a href="#products">Одежда</a>
+    <a href="#products">Новинки</a>
+    <a href="#products">О нас</a>
+  </nav>
+  <div class="icons">
+    <span onclick="toggleSearch()">🔍</span>
+    <span onclick="toggleCart()">🛒<span class="counter" id="count">0</span></span>
+  </div>
+</header>
+
+<div class="search-box" id="searchBox">
+  <input type="text" placeholder="Поиск одежды..." oninput="filterProducts(this.value)">
+</div>
+
+<section class="hero">
+  <h1>PLAG</h1>
+  <p>Минимализм в каждой детали</p>
+  <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Смотреть коллекцию</button>
+</section>
+
+<div class="products" id="products"></div>
+
+<div class="cart-sidebar" id="cart">
+  <span class="close" onclick="toggleCart()">✕</span>
+  <h2>КОРЗИНА</h2>
+  <div id="cartItems"></div>
+  <div class="total" id="total"></div>
+</div>
+
+<div class="toast" id="toast">Добавлено в корзину</div>
+
+<script>
+const products = [
+  {id:1, name:'Худи Oversize', price:4500, emoji:'👕'},
+  {id:2, name:'Джинсы Straight', price:5900, emoji:'👖'},
+  {id:3, name:'Кроссовки White', price:8900, emoji:'👟'},
+  {id:4, name:'Куртка Bomber', price:7900, emoji:'🧥'},
+  {id:5, name:'Футболка Basic', price:1900, emoji:'👕'},
+  {id:6, name:'Кепка Classic', price:1500, emoji:'🧢'},
+  {id:7, name:'Свитер Wool', price:5500, emoji:'🧶'},
+  {id:8, name:'Сумка Canvas', price:2900, emoji:'👜'}
+];
+
+let cart = [];
+let filtered = [...products];
+
+function renderProducts(list) {
+  document.getElementById('products').innerHTML = list.map(p => `
+    <div class="card">
+      <div class="card-img">${p.emoji}</div>
+      <h3>${p.name}</h3>
+      <p>${p.price.toLocaleString()} ₽</p>
+      <button onclick="addToCart(${p.id})">В корзину</button>
+    </div>
+  `).join('');
+}
+
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  cart.push(p);
+  updateCart();
+  showToast(p.name + ' добавлен');
+}
+
+function updateCart() {
+  document.getElementById('count').textContent = cart.length;
+  document.getElementById('cartItems').innerHTML = cart.map((c,i) =>
+    `<div class="cart-item"><span>${c.name}</span><span>${c.price} ₽ <span style="cursor:pointer;color:#f55" onclick="removeItem(${i})">✕</span></span></div>`
+  ).join('') || '<p style="color:#999">Пусто</p>';
+  const total = cart.reduce((s,c) => s+c.price, 0);
+  document.getElementById('total').textContent = 'Итого: ' + total.toLocaleString() + ' ₽';
+}
+
+function removeItem(i) { cart.splice(i,1); updateCart(); }
+function toggleCart() { document.getElementById('cart').classList.toggle('open'); }
+function toggleSearch() { document.getElementById('searchBox').classList.toggle('active'); }
+function filterProducts(q) {
+  filtered = products.filter(p => p.name.toLowerCase().includes(q.toLowerCase()));
+  renderProducts(filtered);
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+renderProducts(products);
+</script>
+</body>
+</html>

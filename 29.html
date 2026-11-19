@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLAG — Bottega Veneta Style</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Helvetica Neue',Arial,sans-serif}
+  body{background:#f5f2ec;color:#2a2a1a;overflow-x:hidden;position:relative}
+  .weave{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.03;background-image:repeating-linear-gradient(45deg,#1a3a1a 0,#1a3a1a 2px,transparent 2px,transparent 8px),repeating-linear-gradient(-45deg,#1a3a1a 0,#1a3a1a 2px,transparent 2px,transparent 8px)}
+  header{display:flex;justify-content:space-between;align-items:center;padding:22px 50px;background:#f5f2ec;border-bottom:1px solid #d8d2c0;position:sticky;top:0;z-index:100}
+  .logo{font-size:28px;font-weight:300;letter-spacing:8px;color:#2a2a1a}
+  nav a{color:#2a2a1a;text-decoration:none;margin:0 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.6;transition:.3s}
+  nav a:hover{opacity:1}
+  .cart-btn{background:none;border:1px solid #2a2a1a;color:#2a2a1a;padding:9px 22px;cursor:pointer;font-family:inherit;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:.3s}
+  .cart-btn:hover{background:#2a2a1a;color:#f5f2ec}
+  .hero{height:75vh;display:flex;align-items:center;justify-content:center;text-align:center;background:#e8e4d8;position:relative;overflow:hidden}
+  .hero-content{position:relative;z-index:2;max-width:700px;padding:0 30px}
+  .hero .eyebrow{font-size:9px;letter-spacing:10px;text-transform:uppercase;color:#6a6a4a;margin-bottom:30px}
+  .hero h1{font-size:85px;font-weight:200;letter-spacing:20px;color:#2a2a1a;margin-bottom:25px;line-height:1}
+  .hero p{font-size:14px;letter-spacing:3px;color:#6a6a4a;font-style:italic;line-height:1.8}
+  .hero .green-line{width:60px;height:2px;background:#4a6a3a;margin:30px auto}
+  .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:30px;padding:70px 50px;max-width:1400px;margin:0 auto;position:relative;z-index:1}
+  .card{background:#fff;text-align:center;transition:.4s;padding:0;border:none}
+  .card:hover{transform:translateY(-5px)}
+  .card-img{height:300px;background:#e8e4d8;display:flex;align-items:center;justify-content:center;font-size:85px;margin-bottom:25px;position:relative;overflow:hidden}
+  .card-img::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(74,106,58,.05) 0,rgba(74,106,58,.05) 1px,transparent 1px,transparent 6px);pointer-events:none}
+  .card h3{font-size:12px;font-weight:400;letter-spacing:3px;text-transform:uppercase;margin:0 0 6px;color:#2a2a1a}
+  .card .price{font-size:16px;font-weight:300;color:#4a6a3a;letter-spacing:1px;margin-bottom:20px}
+  .card button{background:none;border:1px solid #2a2a1a;padding:11px 28px;cursor:pointer;font-family:inherit;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;transition:.3s;color:#2a2a1a}
+  .card button:hover{background:#2a2a1a;color:#f5f2ec}
+  .cart-panel{position:fixed;top:0;right:-450px;width:450px;height:100vh;background:#f5f2ec;padding:50px;transition:.4s;z-index:200;overflow-y:auto;border-left:1px solid #d8d2c0;box-shadow:-20px 0 50px rgba(0,0,0,.05)}
+  .cart-panel.open{right:0}
+  .cart-panel h2{font-size:16px;font-weight:300;letter-spacing:5px;text-transform:uppercase;margin-bottom:35px;padding-bottom:20px;border-bottom:1px solid #d8d2c0}
+  .cart-item{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid #e8e4d8;font-size:11px;letter-spacing:1px;font-weight:300}
+  .total{margin-top:30px;font-size:16px;font-weight:300;letter-spacing:2px;padding:18px 0;border-top:1px solid #4a6a3a;border-bottom:1px solid #4a6a3a;color:#4a6a3a}
+  .checkout{width:100%;margin-top:25px;padding:16px;background:#2a2a1a;color:#f5f2ec;border:none;font-family:inherit;font-size:10px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.3s}
+  .checkout:hover{background:#4a6a3a}
+  .close{position:absolute;top:20px;right:25px;cursor:pointer;font-size:20px;color:#6a6a4a}
+  .del{color:#8a8a6a;cursor:pointer}
+  footer{text-align:center;padding:60px;color:#8a8a6a;font-size:9px;letter-spacing:4px;text-transform:uppercase;border-top:1px solid #d8d2c0;margin-top:30px;position:relative;z-index:1}
+/* ===== MOBILE PATCH ===== */
+@media (max-width: 900px) {
+  header { flex-wrap: wrap !important; padding: 14px 20px !important; gap: 10px !important; }
+  .logo { font-size: 22px !important; letter-spacing: 3px !important; }
+  nav { order: 3; width: 100%; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; margin-top: 8px; }
+  nav a { margin: 0 !important; font-size: 11px !important; padding: 6px 10px !important; }
+  .cart-btn, .cart-icon { font-size: 11px !important; padding: 8px 14px !important; }
+  .hero { height: auto !important; min-height: 55vh !important; padding: 60px 20px !important; }
+  .hero h1 { font-size: 48px !important; letter-spacing: 6px !important; line-height: 1.1 !important; }
+  .hero p { font-size: 12px !important; letter-spacing: 2px !important; }
+  .hero .eyebrow, .hero .ornament, .hero .label { font-size: 10px !important; letter-spacing: 4px !important; margin-bottom: 15px !important; }
+  .kinetic-text { font-size: 80px !important; }
+  .section-title, .section-intro h2 { font-size: 26px !important; letter-spacing: 4px !important; }
+  .section-intro { padding: 40px 20px 20px !important; }
+  .products { grid-template-columns: 1fr !important; gap: 20px !important; padding: 30px 20px 60px !important; }
+  .card { padding: 20px 15px !important; transform: none !important; }
+  .card-img, .card .card-img { height: 220px !important; font-size: 60px !important; }
+  .card .emoji { font-size: 60px !important; }
+  .card h3 { font-size: 14px !important; }
+  .card .price { font-size: 16px !important; }
+  .card button { padding: 10px 18px !important; font-size: 11px !important; }
+  .cart-panel, .cart-sidebar { width: 100% !important; right: -100% !important; padding: 25px 20px !important; }
+  .cart-panel.open, .cart-sidebar.open { right: 0 !important; }
+  .cart-panel h2, .cart-sidebar h2 { font-size: 20px !important; letter-spacing: 3px !important; }
+  .total, .total-lux { font-size: 16px !important; }
+  .checkout, .checkout-btn { padding: 14px !important; font-size: 12px !important; }
+  footer { padding: 30px 20px !important; font-size: 10px !important; letter-spacing: 2px !important; }
+  .toast, .notification { left: 20px !important; right: 20px !important; transform: translateY(100px) !important; }
+  .toast.show, .notification.show { transform: translateY(0) !important; }
+  .search-box { padding: 15px 20px !important; }
+  .search-box input { font-size: 15px !important; padding: 10px !important; }
+  .loader h1 { font-size: 36px !important; letter-spacing: 12px !important; }
+  .modal-content, .modal-inner { width: 95% !important; padding: 20px !important; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 36px !important; letter-spacing: 3px !important; }
+  .hero { min-height: 45vh !important; padding: 40px 15px !important; }
+  .card-img, .card .card-img { height: 180px !important; font-size: 50px !important; }
+  .logo { font-size: 18px !important; letter-spacing: 2px !important; }
+  nav a { font-size: 10px !important; padding: 5px 8px !important; }
+  .kinetic-text { font-size: 60px !important; }
+  .hero .ornament, .hero .eyebrow { letter-spacing: 2px !important; }
+}
+/* ===== /MOBILE PATCH ===== */
+</style>
+</head>
+<body>
+<div class="weave"></div>
+<header>
+  <div class="logo">PLAG</div>
+  <nav><a href="#p">Women</a><a href="#p">Men</a><a href="#p">Maison</a></nav>
+  <button class="cart-btn" onclick="toggleCart()">Bag (<span id="count">0</span>)</button>
+</header>
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">Italian Craftsmanship — Est. 2026</div>
+    <h1>PLAG</h1>
+    <div class="green-line"></div>
+    <p>When your own initials are enough.<br>Quiet luxury, woven with intention.</p>
+  </div>
+</section>
+<div class="products" id="p"></div>
+<div class="cart-panel" id="cart">
+  <span class="close" onclick="toggleCart()">✕</span>
+  <h2>Shopping Bag</h2>
+  <div id="cartItems"></div>
+  <div class="total" id="total"></div>
+  <button class="checkout" onclick="checkout()">Proceed to Checkout</button>
+</div>
+<footer>PLAG — Bottega Veneta Style — 2026</footer>
+<script>
+const products=[
+  {id:1,name:'Худи Oversize',price:4500,emoji:'👕'},
+  {id:2,name:'Джинсы Straight',price:5500,emoji:'👖'},
+  {id:3,name:'Кроссовки White',price:8500,emoji:'👟'},
+  {id:4,name:'Куртка Bomber',price:7500,emoji:'🧥'},
+  {id:5,name:'Футболка Basic',price:2500,emoji:'👕'},
+  {id:6,name:'Кепка Classic',price:1500,emoji:'🧢'},
+  {id:7,name:'Свитер Wool',price:5500,emoji:'🧶'},
+  {id:8,name:'Сумка Canvas',price:3500,emoji:'👜'}
+];
+let cart=[];
+function render(){document.getElementById('p').innerHTML=products.map(p=>`
+  <div class="card"><div class="card-img">${p.emoji}</div><h3>${p.name}</h3>
+  <div class="price">${p.price.toLocaleString()} ₽</div>
+  <button onclick="add(${p.id})">Add to Bag</button></div>`).join('');}
+function add(id){cart.push(products.find(x=>x.id===id));update();}
+function update(){
+  document.getElementById('count').textContent=cart.length;
+  document.getElementById('cartItems').innerHTML=cart.map((c,i)=>
+    `<div class="cart-item"><span>${c.name}</span><span>${c.price.toLocaleString()} ₽ <span class="del" onclick="rm(${i})">✕</span></span></div>`).join('')||'<p style="text-align:center;color:#aaa;font-style:italic">Your bag is empty</p>';
+  document.getElementById('total').textContent='Total: '+cart.reduce((s,c)=>s+c.price,0).toLocaleString()+' ₽';
+}
+function rm(i){cart.splice(i,1);update();}
+function toggleCart(){document.getElementById('cart').classList.toggle('open');}
+function checkout(){if(!cart.length)return alert('Your bag is empty');alert('✓ Order placed! Total: '+cart.reduce((s,c)=>s+c.price,0)+' ₽');cart=[];update();toggleCart();}
+render();
+</script>
+</body>
+</html>
